@@ -3,11 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FishTank Friend</title>
+    <title>FishTank Buddy</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    
+
+    <header class="header-container">
+        <h1 id="header">FISHTANK <span>BUDDY</span></h1>
+    </header>
+
+    <section class="information-section">
+        <p>Please Enter Your Tank Information</p>
+        <div class="info-input-container">
+            <label for="num-of-gallon">Gallons:</label>
+            <input type="number" name="num-of-gallon" id="gallon-input">
+            <label for="water-option">Type:</label>
+            <select name="water-option" id="water-option">
+                <option value="FreshWater">FreshWater</option>
+                <option value="SaltWater">SaltWater</option>
+            </select>
+            <label for="live-stock-question">LiveStock?:</label>
+            <select name="live-stock-question" id="LiveStock-answer">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <button type="button" id="information-button">Sumbit</button>
+        </div>
+    </section>
+
+
+
+
+
 </body>
 <script src="script.js"></script>
 </html>
