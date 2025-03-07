@@ -73,7 +73,7 @@ body{
     background: #3c3c3c;
     width: 300px;
     height: auto;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -99,4 +99,17 @@ body{
 .info-display p {
     font-size: 20px;
     letter-spacing: 2px;
+}
+
+#remove{
+    font-size: 15px;
+    color: red;
+    letter-spacing: 5px;
+    background:none;
+    border: none;
+    cursor: pointer;
+}
+
+#remove:hover{
+    transform: translateY(-1px);
 }
