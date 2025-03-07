@@ -3,6 +3,8 @@ body{
     color: #fff;;
     font-family: "Poppins", sans-serif;
     height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .header-container{
@@ -58,10 +60,43 @@ body{
     padding: 5px 15px;
     border-radius: 15px;
     cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #information-button:hover{
     background-color: #34b1eb;
     color:#191715;
     border:#34b1eb;
+}
+
+.info-display{
+    background: #3c3c3c;
+    width: 300px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 30px auto; /* Centers the div horizontally */
+    padding: 25px;
+    border-radius: 15px;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+}
+
+.info-display img{
+    object-fit: contain;
+    width: 300px;
+    height: auto;
+}
+
+.info-display h2{
+    color: #34b1eb;
+    font-size: 24px;
+}
+
+.info-display p {
+    font-size: 20px;
+    letter-spacing: 2px;
 }
