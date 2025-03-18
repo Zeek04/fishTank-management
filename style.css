@@ -145,6 +145,42 @@ body {
     transform: translateY(-1px);
 }
 
+.parameter-section{
+    text-align: center;
+}
+
+.parameter-section h2{
+    font-size: 30px;
+    margin-top: 50px;
+}
+
+.parameter-section label{
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.parameter-section select, input{
+    margin-right: 30px;
+    color: #fff;
+    background-color: #191715;
+    border: 1px solid #fff;
+    border-radius: 15px;
+    font-size: 18px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.parameter-container{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .info-input-container {

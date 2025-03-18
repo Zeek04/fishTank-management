@@ -39,8 +39,22 @@
 
     <section class="parameter-section">
         <h2>Tank Parameters</h2>
-        <label for="">Tank</label>
-        <option const="tank-selection" value="tank selection"></option>
+        <label for="tank-selection" id="tank-label">Tank</label>
+        <select name="tank-selection" id="tank-selection">
+        </select>
+        <div class="parameter-container">
+            <label for="PH-Input">PH</label>
+            <input type="number" min="0" name="PH-input" id="ph">
+            <label for="CAL-Input">CAL</label>
+            <input type="number" name="CAL-Input" min="0" id="cal">
+            <label for="ALK-Input">ALK/DKH</label>
+            <input type="number" name="ALK-Input" min="0" id="alk">
+            <label for="">PHOS</label>
+            <input type="number" name="PHOS-Input" min="0" id="phos">
+            <label for="">NITRATE</label>
+            <input type="number" name="NITRATE-Input" min="0" id="nitrate">
+            <button type="button" id="information-button">Submit</button>
+        </div>
     </section>
   </body>
   <script src="script.js"></script>
