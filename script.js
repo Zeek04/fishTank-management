@@ -1,11 +1,17 @@
 const submitButton = document.getElementById("information-button");
 const tankContainer = document.querySelector(".tank-container");
+const tankDropdown = document.getElementById("tank-selection"); // Get the dropdown
 
 // Retrieve stored data on page load
 window.addEventListener("load", () => {
   tankContainer.innerHTML = ""; // Clear before adding
+  tankDropdown.innerHTML = '<option value="">Select a Tank</option>'; // Reset dropdown
+  
   const savedTanks = JSON.parse(localStorage.getItem("fishTanks")) || [];
-  savedTanks.forEach(addTankToDOM);
+  savedTanks.forEach((tank) => {
+    addTankToDOM(tank);
+    addTankToDropdown(tank); // ✅ Load tanks into dropdown
+  });
 });
 
 // Get the last used tank ID, default to 0 if not set
@@ -25,44 +31,86 @@ submitButton.addEventListener("click", () => {
   lastTankId++;
   localStorage.setItem("lastTankId", lastTankId); // Save updated ID
 
-  const newTank = { gallon, type, liveStock, id: lastTankId };
+  const newTank = { id: lastTankId, name: `Fish Tank ${lastTankId}`, gallon, type, liveStock };
 
   const savedTanks = JSON.parse(localStorage.getItem("fishTanks")) || [];
   savedTanks.push(newTank);
   localStorage.setItem("fishTanks", JSON.stringify(savedTanks));
 
-  // Add to DOM
+  // Add to DOM & dropdown
   addTankToDOM(newTank);
+  addTankToDropdown(newTank);
 
   // Clear input fields
   document.getElementById("gallon-input").value = "";
 });
 
+// Function to add tank to the DOM
 function addTankToDOM(tank) {
   const tankDiv = document.createElement("div");
   tankDiv.classList.add("info-display");
   tankDiv.innerHTML = `
-        <h2>Fish Tank ${tank.id}</h2>
+        <h2 class="tank-name">${tank.name}</h2>
         <img src="fishTank.png" alt="fish tank">
         <p><strong>Gallons:</strong> ${tank.gallon}</p>
         <p><strong>Type:</strong> ${tank.type}</p>
         <p><strong>LiveStock:</strong> ${tank.liveStock}</p>
+        <button class="rename-button" data-id="${tank.id}">Rename</button>
         <button class="remove-button" data-id="${tank.id}">Remove</button>
     `;
 
+  // Add event listener for rename button
+  tankDiv.querySelector(".rename-button").addEventListener("click", () => renameTank(tank.id, tankDiv));
+
   // Add event listener for remove button
-  tankDiv
-    .querySelector(".remove-button")
-    .addEventListener("click", () => removeTank(tank.id, tankDiv));
+  tankDiv.querySelector(".remove-button").addEventListener("click", () => removeTank(tank.id, tankDiv));
 
   tankContainer.appendChild(tankDiv);
 }
 
-// Function to remove tank info
+// Function to add tank to dropdown
+function addTankToDropdown(tank) {
+  const option = document.createElement("option");
+  option.value = tank.id;
+  option.textContent = tank.name;
+  tankDropdown.appendChild(option);
+}
+
+// Function to rename a tank
+function renameTank(id, tankDiv) {
+  let savedTanks = JSON.parse(localStorage.getItem("fishTanks")) || [];
+  const tankIndex = savedTanks.findIndex((tank) => tank.id === id);
+
+  if (tankIndex !== -1) {
+    const newName = prompt("Enter a new name for your tank:", savedTanks[tankIndex].name);
+    
+    if (newName) {
+      savedTanks[tankIndex].name = newName;
+      localStorage.setItem("fishTanks", JSON.stringify(savedTanks));
+
+      // ✅ Update name in the DOM
+      tankDiv.querySelector(".tank-name").innerText = newName;
+
+      // ✅ Update the dropdown selection
+      let dropdownOption = tankDropdown.querySelector(`option[value="${id}"]`);
+      if (dropdownOption) {
+        dropdownOption.textContent = newName;
+      }
+    }
+  }
+}
+
+// Function to remove a tank
 function removeTank(id, tankElement) {
   let savedTanks = JSON.parse(localStorage.getItem("fishTanks")) || [];
   savedTanks = savedTanks.filter((tank) => tank.id !== id); // Remove the selected tank
   localStorage.setItem("fishTanks", JSON.stringify(savedTanks));
 
   tankElement.remove(); // Remove from DOM
+
+  // ✅ Remove from dropdown
+  let dropdownOption = tankDropdown.querySelector(`option[value="${id}"]`);
+  if (dropdownOption) {
+    dropdownOption.remove();
+  }
 }
