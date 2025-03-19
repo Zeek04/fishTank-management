@@ -4,7 +4,6 @@ const tankDropdown = document.getElementById("tank-selection");
 const parameterSubmitButton = document.querySelector("#parameter-button");
 const parameterContainer = document.querySelector(".tank_parameter_display");
 
-// Load Tanks & Parameters on Page Load
 window.addEventListener("load", () => {
     displaySavedTanks();
     updateParameterDisplay();
@@ -51,7 +50,6 @@ function addTankToDOM(tank) {
         <button class="remove-button" data-id="${tank.id}">Remove</button>
     `;
 
-    // Rename & Remove Event Listeners
     tankDiv.querySelector(".rename-button").addEventListener("click", () => renameTank(tank.id, tankDiv));
     tankDiv.querySelector(".remove-button").addEventListener("click", () => removeTank(tank.id, tankDiv));
 
@@ -78,16 +76,13 @@ function renameTank(id, tankDiv) {
             savedTanks[tankIndex].name = newName;
             localStorage.setItem("fishTanks", JSON.stringify(savedTanks));
 
-            // Update name in DOM
             tankDiv.querySelector(".tank-name").innerText = newName;
 
-            // Update name in dropdown
             let dropdownOption = tankDropdown.querySelector(`option[value="${id}"]`);
             if (dropdownOption) {
                 dropdownOption.textContent = newName;
             }
 
-            // Refresh parameter display with updated name
             updateParameterDisplay();
         }
     }
@@ -105,13 +100,11 @@ function removeTank(id, tankDiv) {
     // Update localStorage
     localStorage.setItem("fishTanks", JSON.stringify(savedTanks));
     localStorage.setItem("tankParameters", JSON.stringify(savedParameters));
-
-    // Remove tank div and dropdown option
+n
     tankDiv.remove();
     let dropdownOption = tankDropdown.querySelector(`option[value="${id}"]`);
     if (dropdownOption) dropdownOption.remove();
 
-    // Update parameter display after removal
     updateParameterDisplay();
 }
 
