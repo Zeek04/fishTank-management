@@ -41,7 +41,7 @@
         <h2>Tank Parameters</h2>
         <label for="tank-selection" id="tank-label">Tank</label>
         <select name="tank-selection" id="tank-selection">
-        </select>
+        </select><br>
         <label for="date_selection">Date</label>
         <input type="date" id="date_selection">
         <div class="parameter-container">
@@ -55,9 +55,11 @@
             <input type="number" name="PHOS-Input" min="0" id="phos" required>
             <label for="">NITRATE</label>
             <input type="number" name="NITRATE-Input" min="0" id="nitrate" required>
-            <button type="button" id="information-button">Submit</button>
+            <button type="button" id="parameter-button">Submit</button>
         </div>
+        <div class="tank_parameter_display"></div>
     </section>
+
+    <script src="script.js"></script>
   </body>
-  <script src="script.js"></script>
 </html>
