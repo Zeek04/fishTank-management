@@ -1,6 +1,6 @@
 const submitButton = document.getElementById("information-button");
 const tankContainer = document.querySelector(".tank-container");
-const tankDropdown = document.getElementById("tank-selection"); // Get the dropdown
+const tankDropdown = document.getElementById("tank-selection"); 
 
 // Retrieve stored data on page load
 window.addEventListener("load", () => {
@@ -10,7 +10,7 @@ window.addEventListener("load", () => {
   const savedTanks = JSON.parse(localStorage.getItem("fishTanks")) || [];
   savedTanks.forEach((tank) => {
     addTankToDOM(tank);
-    addTankToDropdown(tank); // ✅ Load tanks into dropdown
+    addTankToDropdown(tank);
   });
 });
 
@@ -27,7 +27,6 @@ submitButton.addEventListener("click", () => {
     return alert("Please enter a valid number of gallons.");
   }
 
-  // ✅ Increment the ID for the new tank
   lastTankId++;
   localStorage.setItem("lastTankId", lastTankId); // Save updated ID
 
@@ -41,7 +40,6 @@ submitButton.addEventListener("click", () => {
   addTankToDOM(newTank);
   addTankToDropdown(newTank);
 
-  // Clear input fields
   document.getElementById("gallon-input").value = "";
 });
 
@@ -59,10 +57,8 @@ function addTankToDOM(tank) {
         <button class="remove-button" data-id="${tank.id}">Remove</button>
     `;
 
-  // Add event listener for rename button
   tankDiv.querySelector(".rename-button").addEventListener("click", () => renameTank(tank.id, tankDiv));
 
-  // Add event listener for remove button
   tankDiv.querySelector(".remove-button").addEventListener("click", () => removeTank(tank.id, tankDiv));
 
   tankContainer.appendChild(tankDiv);
@@ -108,7 +104,7 @@ function removeTank(id, tankElement) {
 
   tankElement.remove(); // Remove from DOM
 
-  // ✅ Remove from dropdown
+  // Remove from dropdown
   let dropdownOption = tankDropdown.querySelector(`option[value="${id}"]`);
   if (dropdownOption) {
     dropdownOption.remove();

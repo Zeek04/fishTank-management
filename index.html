@@ -42,17 +42,19 @@
         <label for="tank-selection" id="tank-label">Tank</label>
         <select name="tank-selection" id="tank-selection">
         </select>
+        <label for="date_selection">Date</label>
+        <input type="date" id="date_selection">
         <div class="parameter-container">
             <label for="PH-Input">PH</label>
-            <input type="number" min="0" name="PH-input" id="ph">
+            <input type="number" min="0" name="PH-input" id="ph" required>
             <label for="CAL-Input">CAL</label>
-            <input type="number" name="CAL-Input" min="0" id="cal">
+            <input type="number" name="CAL-Input" min="0" id="cal" required>
             <label for="ALK-Input">ALK/DKH</label>
-            <input type="number" name="ALK-Input" min="0" id="alk">
+            <input type="number" name="ALK-Input" min="0" id="alk" required>
             <label for="">PHOS</label>
-            <input type="number" name="PHOS-Input" min="0" id="phos">
+            <input type="number" name="PHOS-Input" min="0" id="phos" required>
             <label for="">NITRATE</label>
-            <input type="number" name="NITRATE-Input" min="0" id="nitrate">
+            <input type="number" name="NITRATE-Input" min="0" id="nitrate" required>
             <button type="button" id="information-button">Submit</button>
         </div>
     </section>

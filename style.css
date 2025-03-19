@@ -157,7 +157,6 @@ body {
     color: #3c3c3c;
 }
 
-
 .remove-button:hover {
     background: red;
     color: white;
@@ -177,6 +176,10 @@ body {
     margin-right: 10px;
     font-size: 18px;
     font-weight: bold;
+}
+
+#date_selection{
+    color: #fff;
 }
 
 .parameter-section select, input{
@@ -199,6 +202,9 @@ body {
     flex-wrap: wrap;
 }
 
+.parameter-container input{
+    width: 75px;
+}
 
 
 /* Responsive Design */
@@ -206,12 +212,14 @@ body {
     .info-input-container {
         flex-direction: column;
         gap: 15px;
+        text-align: center;
     }
 
     .info-input-container input, 
     .info-input-container select {
         width: 100%;
         max-width: 250px;
+        text-align: center;
     }
 
     #information-button {
@@ -221,6 +229,18 @@ body {
 
     .tank-container {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        text-align: center;
         gap: 15px;
+    }
+    
+    .parameter-container{
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .parameter-section select, input{
+        width: 100%;
+        max-width: 250px;
     }
 }
