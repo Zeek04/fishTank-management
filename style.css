@@ -86,7 +86,7 @@ body {
 }
 
 /* Tank Info Box */
-.info-display {
+.info-display, .tank_parameter_display {
     background: #3c3c3c;
     width: 300px;
     height: auto;
