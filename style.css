@@ -77,16 +77,16 @@ body {
 }
 
 /* Tank Display Section */
-.tank-container, .tank_parameter_display div {
+.tank-container, .tank_parameter_display{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 5px;
     justify-content: center;
     padding: 20px;
 }
 
 /* Tank Info Box */
-.info-display, .tank_parameter_display {
+.info-display{
     background: #3c3c3c;
     width: 300px;
     height: auto;

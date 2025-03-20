@@ -127,6 +127,11 @@ parameterSubmitButton.addEventListener("click", () => {
 
     let selectedTank = savedTanks.find((tank) => tank.id == selectedTankId);
 
+    if(!dateValue){
+        alert('Please Enter a date')
+        return
+    }
+
     if (selectedTank) {
         selectedTank.parameters = {
             date: dateValue,
@@ -145,7 +150,8 @@ parameterSubmitButton.addEventListener("click", () => {
 
 // Update Parameter Display
 function updateParameterDisplay() {
-    parameterContainer.innerHTML = "";
+    const parameterDiv = document.createElement('div')
+    parameterDiv.classList.add('info-display')
 
     let savedTanks = JSON.parse(localStorage.getItem("fishTanks")) || [];
     let selectedTankId = tankDropdown.value;
@@ -157,15 +163,17 @@ function updateParameterDisplay() {
 
         let tankData = `
             <h2>${selectedTank.name}'s Parameters</h2>
-            <p><strong>Date:</strong>${params.date || "N/A"}</p>
+            <p><strong>Date:</strong> ${params.date || "N/A"}</p>
             <p><strong>PH:</strong> ${params.ph || "N/A"}</p>
             <p><strong>CAL:</strong> ${params.cal || "N/A"}</p>
             <p><strong>ALK:</strong> ${params.alk || "N/A"}</p>
             <p><strong>PHOS:</strong> ${params.phos || "N/A"}</p>
             <p><strong>NITRATE:</strong> ${params.nitrate || "N/A"}</p>
+            <button class="remove-button">Remove</button>
         `;
-
-        parameterContainer.innerHTML = tankData;
+        
+        parameterDiv.innerHTML = tankData;
+        parameterContainer.appendChild(parameterDiv)
     }
 }
 
