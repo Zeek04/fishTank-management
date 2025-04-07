@@ -24,7 +24,7 @@ submitButton.addEventListener("click", () => {
         gallon,
         type,
         liveStock,
-        parameters: {} // Store parameters here
+        parameters: [] // Now an array
     };
 
     savedTanks.push(newTank);
@@ -76,7 +76,6 @@ function addTankToDropdown(tank) {
 function removeTank(id, tankDiv) {
     let savedTanks = JSON.parse(localStorage.getItem("fishTanks")) || [];
     savedTanks = savedTanks.filter((tank) => tank.id !== id);
-    
     localStorage.setItem("fishTanks", JSON.stringify(savedTanks));
 
     tankDiv.remove();
@@ -113,7 +112,7 @@ function renameTank(id, tankDiv) {
     }
 }
 
-// Save and Update Parameters
+// Save Parameters (multiple entries)
 parameterSubmitButton.addEventListener("click", () => {
     const dateValue = document.getElementById('date_selection').value;
     const phValue = document.getElementById("ph").value;
@@ -124,16 +123,20 @@ parameterSubmitButton.addEventListener("click", () => {
 
     let savedTanks = JSON.parse(localStorage.getItem("fishTanks")) || [];
     let selectedTankId = tankDropdown.value;
-
     let selectedTank = savedTanks.find((tank) => tank.id == selectedTankId);
 
-    if(!dateValue){
-        alert('Please Enter a date')
-        return
+    if (!dateValue) {
+        alert('Please enter a date');
+        return;
     }
 
     if (selectedTank) {
-        selectedTank.parameters = {
+        if (!Array.isArray(selectedTank.parameters)) {
+            selectedTank.parameters = [];
+        }
+
+        const newParamEntry = {
+            id: Date.now(),
             date: dateValue,
             ph: phValue,
             cal: calValue,
@@ -142,40 +145,56 @@ parameterSubmitButton.addEventListener("click", () => {
             nitrate: nitrateValue
         };
 
+        selectedTank.parameters.push(newParamEntry);
         localStorage.setItem("fishTanks", JSON.stringify(savedTanks));
 
         updateParameterDisplay();
     }
 });
 
-// Update Parameter Display
+// Display All Parameter Entries
 function updateParameterDisplay() {
-    const parameterDiv = document.createElement('div')
-    parameterDiv.classList.add('info-display')
+    parameterContainer.innerHTML = "";
 
     let savedTanks = JSON.parse(localStorage.getItem("fishTanks")) || [];
     let selectedTankId = tankDropdown.value;
-
     let selectedTank = savedTanks.find((tank) => tank.id == selectedTankId);
-    
-    if (selectedTank) {
-        let params = selectedTank.parameters || {};
 
-        let tankData = `
-            <h2>${selectedTank.name}'s Parameters</h2>
-            <p><strong>Date:</strong> ${params.date || "N/A"}</p>
-            <p><strong>PH:</strong> ${params.ph || "N/A"}</p>
-            <p><strong>CAL:</strong> ${params.cal || "N/A"}</p>
-            <p><strong>ALK:</strong> ${params.alk || "N/A"}</p>
-            <p><strong>PHOS:</strong> ${params.phos || "N/A"}</p>
-            <p><strong>NITRATE:</strong> ${params.nitrate || "N/A"}</p>
-            <button class="remove-button">Remove</button>
-        `;
-        
-        parameterDiv.innerHTML = tankData;
-        parameterContainer.appendChild(parameterDiv)
+    if (selectedTank && Array.isArray(selectedTank.parameters)) {
+        selectedTank.parameters.forEach((paramEntry) => {
+            const parameterDiv = document.createElement('div');
+            parameterDiv.classList.add('info-display');
+
+            parameterDiv.innerHTML = `
+                <h2>${selectedTank.name} - ${paramEntry.date}</h2>
+                <p><strong>PH:</strong> ${paramEntry.ph || "N/A"}</p>
+                <p><strong>CAL:</strong> ${paramEntry.cal || "N/A"}</p>
+                <p><strong>ALK:</strong> ${paramEntry.alk || "N/A"}</p>
+                <p><strong>PHOS:</strong> ${paramEntry.phos || "N/A"}</p>
+                <p><strong>NITRATE:</strong> ${paramEntry.nitrate || "N/A"}</p>
+                <button class="remove-button">Remove</button>
+            `;
+
+            parameterDiv.querySelector(".remove-button").addEventListener("click", () => {
+                removeParameterEntry(selectedTankId, paramEntry.id);
+            });
+
+            parameterContainer.appendChild(parameterDiv);
+        });
     }
 }
 
-// Update parameters when selecting a tank
+// Remove one parameter entry
+function removeParameterEntry(tankId, entryId) {
+    let savedTanks = JSON.parse(localStorage.getItem("fishTanks")) || [];
+    let selectedTank = savedTanks.find((tank) => tank.id == tankId);
+
+    if (selectedTank && Array.isArray(selectedTank.parameters)) {
+        selectedTank.parameters = selectedTank.parameters.filter(entry => entry.id !== entryId);
+        localStorage.setItem("fishTanks", JSON.stringify(savedTanks));
+        updateParameterDisplay();
+    }
+}
+
+// Update display when selecting a different tank
 tankDropdown.addEventListener("change", updateParameterDisplay);

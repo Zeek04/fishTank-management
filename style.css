@@ -80,7 +80,7 @@ body {
 .tank-container, .tank_parameter_display{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 5px;
+    gap: 20px;
     justify-content: center;
     padding: 20px;
 }
